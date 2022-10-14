@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,22 +10,24 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float vertical;
     private Rigidbody2D _rb;
-    int score = 0;
     public Text scoreText;
     public GameObject greenBallPrefab;
     public GameObject RedBallPrefab;
     public GameObject RedBallFollowPrefab;
-    public BoxCollider2D spawnArea;
+    public BoxCollider2D[] spawnArea;
     public GameObject deadScreen;
     public Text deadScreenText;
     public Text highscoreText;
     public int highscore;
     [SerializeField] private Animator anim;
+
+    GameManager score;
     void Start()
     {
+        Time.timeScale = 1;
+        score = GameObject.FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
-        updateText(score);
         instantiateBall(greenBallPrefab);
         highscore = PlayerPrefs.GetInt("Highscore");
     }
@@ -51,8 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("GreenBall"))
         {
-            score++;
-            updateText(score);
+            score.score++;
             Destroy(collision.gameObject);
             instantiateBall(greenBallPrefab);
             int randomNumber = Random.Range(1, 3);
@@ -91,22 +93,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
-        _rb.velocity = Vector2.zero;
-        if (score > highscore)
-        {
-            PlayerPrefs.SetInt("Highscore", score);
-            highscore = score;
-        }
-        deadScreenText.text = "SCORE: " + score;
-        highscoreText.text = "HIGHSCORE: " + highscore;
-        deadScreen.SetActive(true);
+        Time.timeScale = 0;
+        //Destroy(GameObject.Find("MainCanvas"));
+        SceneManager.LoadScene(3, LoadSceneMode.Additive);
     }
     void instantiateBall(GameObject ballType)
     {
+        int selectRandomArea = Random.Range(0, spawnArea.Length - 1);
+        Debug.Log(selectRandomArea);
+
         Instantiate(ballType,
-            new Vector3(Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-            Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y),
-            Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z))
+            new Vector3(Random.Range(spawnArea[selectRandomArea].bounds.min.x, spawnArea[selectRandomArea].bounds.max.x),
+            Random.Range(spawnArea[selectRandomArea].bounds.min.y, spawnArea[selectRandomArea].bounds.max.y),
+            Random.Range(spawnArea[selectRandomArea].bounds.min.z, spawnArea[selectRandomArea].bounds.max.z))
                 , Quaternion.identity);
     }
 }

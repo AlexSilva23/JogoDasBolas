@@ -9,6 +9,7 @@ public class EndScreenManager : MonoBehaviour
     public GameManager gManager;
     public Text endText, scoreText, highScoreText;
     int highscore = 0;
+    private bool newHighscore;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class EndScreenManager : MonoBehaviour
         if (gManager.score > highscore)
         {
             PlayerPrefs.SetInt("Highscore", gManager.score);
+            newHighscore = true;
         }
 
     }
@@ -33,7 +35,14 @@ public class EndScreenManager : MonoBehaviour
         }
 
         scoreText.text = "Score: " + gManager.score;
-        highScoreText.text = "Highscore: " + highscore;
+        if (newHighscore)
+        {
+            highScoreText.text = "New Highscore!!";
+        }
+        else
+        {
+            highScoreText.text = "";
+        }
     }
 
     public void PlayAgain()

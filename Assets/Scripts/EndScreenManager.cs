@@ -38,6 +38,8 @@ public class EndScreenManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        gManager.player = FindObjectOfType<PlayerMovement>();
+        gManager.redBallResizeTime = 0;
         Time.timeScale = 1;
         gManager.score = 0;
         gManager.timer = 0;

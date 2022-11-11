@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1047934695840623567}
   - component: {fileID: 6561876207157446221}
   - component: {fileID: -222534861919252882}
+  - component: {fileID: -7720279759194018401}
   m_Layer: 7
   m_Name: EnemyFollowPlayer
   m_TagString: RedBall
@@ -151,4 +152,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c927b3a100b9b8743bb2e88032dd8316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemy: 1
+--- !u!114 &-7720279759194018401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491156993822321172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ab07fe597251b42952a65e5887d589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickedUP: {fileID: 0}
+  timer: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1038141796276114596}
   - component: {fileID: 358024005384974457}
   - component: {fileID: 5867205455928794619}
+  - component: {fileID: -2332576560435867335}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: RedBall
@@ -154,3 +155,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.53141046
+--- !u!114 &-2332576560435867335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2949481673356079522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ab07fe597251b42952a65e5887d589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickedUP: {fileID: 0}
+  timer: 0

@@ -9,6 +9,7 @@ TagManager:
   - GreenBall
   - SpawnArea
   - GameManager
+  - PowerUP
   layers:
   - Default
   - TransparentFX

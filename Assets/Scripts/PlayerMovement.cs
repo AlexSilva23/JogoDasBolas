@@ -14,12 +14,17 @@ public class PlayerMovement : MonoBehaviour
     public GameObject greenBallPrefab;
     public GameObject RedBallPrefab;
     public GameObject RedBallFollowPrefab;
+    public GameObject powerUpPrefab;
     public BoxCollider2D[] spawnArea;
     public GameObject deadScreen;
     public Text deadScreenText;
     public Text highscoreText;
     public int highscore;
     [SerializeField] private Animator anim;
+
+    public float spawnPowerUP_time;
+    public bool spawnedPowerUP;
+    public bool pickedUpPowerUp;
 
     GameManager score;
     void Start()
@@ -36,10 +41,16 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-
+        spawnPowerUP_time += Time.deltaTime;
+        Mathf.RoundToInt(spawnPowerUP_time);
         Vector2 movement = new Vector2(Mathf.Abs(horizontal), vertical);
-
         anim.SetFloat("Speed", movement.magnitude);
+
+        if (spawnPowerUP_time > 10 && !spawnedPowerUP)
+        {
+            instantiateBall(powerUpPrefab);
+            spawnedPowerUP = true;
+        }
     }
 
     private void FixedUpdate()
@@ -58,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
             instantiateBall(greenBallPrefab);
             int randomNumber = Random.Range(1, 3);
-            Debug.Log(randomNumber);
             if (randomNumber == 1)
             {
                 instantiateBall(RedBallPrefab);
@@ -70,9 +80,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.CompareTag("RedBall"))
         {
-            Debug.Log("Die");
             anim.SetTrigger("Die");
             this.enabled = false;
+        }
+        else if (collision.CompareTag("PowerUP"))
+        {
+            pickedUpPowerUp = true;
+            Destroy(collision.gameObject);
         }
 
     }
@@ -100,7 +114,6 @@ public class PlayerMovement : MonoBehaviour
     void instantiateBall(GameObject ballType)
     {
         int selectRandomArea = Random.Range(0, spawnArea.Length - 1);
-        Debug.Log(selectRandomArea);
 
         Instantiate(ballType,
             new Vector3(Random.Range(spawnArea[selectRandomArea].bounds.min.x, spawnArea[selectRandomArea].bounds.max.x),

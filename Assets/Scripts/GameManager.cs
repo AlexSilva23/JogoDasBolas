@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     [HideInInspector] public bool Win = false;
 
+    public float redBallResizeTime = 0;
+    public PlayerMovement player;
+
     private void Start()
     {
         scoreText = gameObject.transform.Find("ScoreText").GetComponent<Text>();
@@ -25,8 +28,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerMovement>();
+        }
         timer += Time.deltaTime;
-        Debug.Log(timer);
         if (timer >= 30)
         {
             timer = 0;
@@ -41,6 +47,10 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
 
             }
+        }
+        if (player.pickedUpPowerUp)
+        {
+            redBallResizeTime += Time.deltaTime;
         }
 
         scoreText.text = "Score: " + score;

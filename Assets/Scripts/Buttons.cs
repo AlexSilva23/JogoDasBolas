@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
+
+
+    private void Start()
+    {
+    }
     public void Restart()
     {
         Scene curScene = SceneManager.GetActiveScene();

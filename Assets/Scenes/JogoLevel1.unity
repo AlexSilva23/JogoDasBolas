@@ -829,6 +829,7 @@ MonoBehaviour:
   score: 0
   scoreText: {fileID: 0}
   Win: 0
+  redBallResizeTime: 0
 --- !u!1 &1655549342
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +925,7 @@ MonoBehaviour:
   greenBallPrefab: {fileID: 7737340625767768522, guid: 9f9d20d49708f474586f9bdcdd2879ae, type: 3}
   RedBallPrefab: {fileID: 2949481673356079522, guid: 4b6385f22f5f9ee4286d594eb5243c88, type: 3}
   RedBallFollowPrefab: {fileID: 2491156993822321172, guid: c7d9b04d839124c43ba79172fb4198cf, type: 3}
+  powerUpPrefab: {fileID: 8676225819807073354, guid: 9f543f98010bb674385c419f9eb81acb, type: 3}
   spawnArea:
   - {fileID: 1655549343}
   deadScreen: {fileID: 0}
@@ -931,6 +933,9 @@ MonoBehaviour:
   highscoreText: {fileID: 0}
   highscore: 0
   anim: {fileID: 0}
+  spawnPowerUP_time: 0
+  spawnedPowerUP: 0
+  pickedUpPowerUp: 0
 --- !u!61 &1857893517
 BoxCollider2D:
   m_ObjectHideFlags: 0

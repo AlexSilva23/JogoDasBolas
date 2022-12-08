@@ -27,6 +27,12 @@ public class PlayerMovement : MonoBehaviour
     public bool pickedUpPowerUp;
 
     GameManager score;
+
+    public Image InvencibleFill;
+    public Image InvencibleBorder;
+    public float InvencibleDurantion;
+    public float InvencibleTimeLeft;
+    private bool isInvencible = false;
     void Start()
     {
         Time.timeScale = 1;
@@ -51,6 +57,18 @@ public class PlayerMovement : MonoBehaviour
             instantiateBall(powerUpPrefab);
             spawnedPowerUP = true;
         }
+
+        if (InvencibleTimeLeft > 0)
+        {
+            isInvencible = true;
+            InvencibleTimeLeft -= Time.deltaTime;
+            InvencibleFill.fillAmount = Mathf.InverseLerp(0, InvencibleDurantion, InvencibleTimeLeft);
+        }
+        else
+        {
+            isInvencible = false;
+            InvencibleBorder.gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -63,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("GreenBall"))
+        if (collision.CompareTag("GreenBall") /*&& !isInvencible*/)
         {
             score.score++;
             Destroy(collision.gameObject);
@@ -77,13 +95,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 instantiateBall(RedBallFollowPrefab);
             }
+            StartInvencibility();
         }
-        else if (collision.CompareTag("RedBall"))
+        else if (collision.CompareTag("RedBall") && !isInvencible)
         {
             anim.SetTrigger("Die");
             this.enabled = false;
         }
-        else if (collision.CompareTag("PowerUP"))
+        else if (collision.CompareTag("PowerUP") && !isInvencible)
         {
             pickedUpPowerUp = true;
             Destroy(collision.gameObject);
@@ -120,5 +139,11 @@ public class PlayerMovement : MonoBehaviour
             Random.Range(spawnArea[selectRandomArea].bounds.min.y, spawnArea[selectRandomArea].bounds.max.y),
             Random.Range(spawnArea[selectRandomArea].bounds.min.z, spawnArea[selectRandomArea].bounds.max.z))
                 , Quaternion.identity);
+    }
+
+    void StartInvencibility()
+    {
+        InvencibleBorder.gameObject.SetActive(true);
+        InvencibleTimeLeft = InvencibleDurantion;
     }
 }

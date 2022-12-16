@@ -39,13 +39,13 @@ public class playerPowerPointEffecr : MonoBehaviour
     void powerUpEffect()
     {
         Debug.Log("1");
-        this.transform.localScale = new Vector3(.5f, .5f, .5f);
+        this.transform.localScale = new Vector3(.4f, .4f, .4f);
     }
 
     void resizeBallls()
     {
         Debug.Log("2");
-        this.transform.localScale = new Vector3(1f, 1f, 1f);
+        this.transform.localScale = new Vector3(.75f, .75f, .75f);
     }
 
 }
